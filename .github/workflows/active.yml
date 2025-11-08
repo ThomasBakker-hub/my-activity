@@ -1,0 +1,30 @@
+name: Super Active Bot
+
+on:
+  schedule:
+    - cron: '*/30 * * * *' # هر ۳۰ دقیقه یک‌بار اجرا می‌شود
+  workflow_dispatch: # قابلیت اجرای دستی
+
+jobs:
+  auto-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Update activity file
+        run: |
+          echo "Activity logged at: $(date)" > log.txt
+
+      - name: Commit changes
+        run: |
+          git config --global user.email "vikram.singh13672000@gmail.com"
+          git config --global user.name "ThomasBakker-hub"
+          
+          git add log.txt
+          git commit -m "Bot is working! 🤖"
+          git push
+          
